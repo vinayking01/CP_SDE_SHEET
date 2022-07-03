@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int find_index1 = -1;
+        int find_index2 = 0;
+        for(int i =nums.size()-1;i>=1;i--)            // finding the index of the smallest element 
+        {
+            if(nums[i]>nums[i-1])                 
+            {
+                find_index1 = i-1;
+                break;
+            }
+        
+        }
+        
+        if(find_index1<0)
+        {
+            reverse(nums.begin(),nums.end());       // if not found meaning whole is sorte in increasing order
+            return ;
+        }
+        else
+        {
+           for(int i= nums.size()-1;i>=1;i--)
+           {
+               if(nums[i]>nums[find_index1])        // if found the finding next largest element present 
+               {
+                   find_index2 = i ;
+                   break;
+               }
+           }
+        }
+        swap(nums[find_index1],nums[find_index2]);    // swapping the elements 
+        sort(nums.begin()+find_index1+1,nums.end());  // sorting till the end form the 1st index found
+    }
+};
