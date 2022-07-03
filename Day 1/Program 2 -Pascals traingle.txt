@@ -1,0 +1,41 @@
+class Solution {
+public
+     vectorvectorint generate(int numRows) {
+         vectorvectorint  r(numRows);
+        
+         for(int i =0;inumRows;i++)
+         {
+             r[i].resize(i+1);    resiszing according the the row 
+             r[i][0] = r[i][i] = 1;
+             for(int j=1;ji;j++)
+             {
+                 r[i][j] = r[i-1][j-1] + r[i-1][j];
+             }
+         }
+         return r;
+     }
+    
+    vectorvectorint generate(int numRows) {
+         
+        vectorvectorint r;     2d array
+        
+        for(int i=0;inumRows;i++)
+        {   
+         vectorint v1(i+1,-1);    row wise array with by default values
+         r.push_back(v1);
+            
+            for(int j=0;ji+1;j++)    for values of the elements
+            {
+              if(j==0  j==i)     for values of last and first element 
+              {
+                  r[i][j] = 1;
+              }
+            else{
+                 r[i][j] = r[i-1][j-1] + r[i-1][j];    taking sum of the upper values 
+                }
+            }
+            
+        }
+        return r;
+    }
+};

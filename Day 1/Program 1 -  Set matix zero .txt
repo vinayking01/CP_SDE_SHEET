@@ -1,0 +1,71 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+     bool col= true, row = true;    // for checking the if that 1st row or column contain the zero 
+        int rn = matrix.size();
+        int cn = matrix[0].size();
+     
+        for(int i =0;i<rn;i++)
+        {
+            if(matrix[i][0]==0)
+            {
+                col = false;
+            }
+        }
+        for(int j=0;j<cn;j++)
+        {
+            if(matrix[0][j]==0)
+            {
+                row = false;
+            }
+        }                                  //ending 1st step
+      
+        
+                                            // checking the zero and updating row and column
+        for(int i =1;i<rn;i++)
+     {
+         for(int j =1;j<cn;j++)
+         {
+             if(matrix[i][j]==0)
+             {
+                 matrix[i][0] = matrix[0][j] = 0 ;
+             }
+         }
+     }                                     // ending step 2
+                                            
+        
+                                            // traversing reversily to check and update matrix now
+     for(int i= rn-1;i>=1;i--)
+     {
+         for(int j = cn-1;j>=1;j--)
+         {
+             if(matrix[i][0]==0 || matrix[0][j]==0)
+             {
+                 matrix[i][j]=0;
+             }
+         }
+     }                                       //ending step 3
+        
+        
+                                            // if 0th row and column is found zero then changing it to zero
+        
+     if( col == false)
+     {  
+         for(int i =0;i<rn;i++)
+     {
+         cout<<i;    
+         matrix[i][0] = 0;   
+            
+     }
+         
+     }
+     
+     if( row == false)
+     {  
+         for(int j =0;j<cn;j++)
+     {
+         matrix[0][j] = 0;   
+     }   
+     }                                      // ending step 4
+    }
+};
