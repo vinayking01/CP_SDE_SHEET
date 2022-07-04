@@ -1,0 +1,70 @@
+#includebitsstdc++.h
+class Solution {
+public
+    
+  Approach - 1 -   
+     void merge(vectorint& nums1, int m, vectorint& nums2, int n) {
+         for(int i =0,j=0;im && jn;)
+         {   if((i+n)==(m+n))
+             {
+             break;
+             }
+             if(nums1[i]=nums2[j])
+             {
+                 swap(nums1[i],nums2[j]);
+                  coutnums1[i];
+                 sort(nums2.begin(),nums2.end());
+                 i++;
+             }
+             else
+             {
+              i++;   
+             }
+         }
+         int i =m;
+         for(int j=0;jn;j++)
+         {
+            nums1[i+j]=nums2[j];
+             swap(nums1[i+j],nums2[j]);
+         }
+     }
+    
+  Approach -2 -
+    void merge(vectorint& nums1, int m, vectorint& nums2, int n) 
+    {
+        for (int i = m,j=0; i(m+n);i++,j++)
+        {
+            nums1[i] = nums2[j];            first single array storing remaining elements
+        }
+        double p = double(m+n+1)double(2);   finding the gap
+        int gap = ceil(p);
+        
+        
+        while(gap0)                          till then gap is zero 
+        {   
+            for(int i =0,j=i+gap;i(m+n)&&j(m+n);)
+            {
+                if(nums1[i]nums1[j])
+                {
+                    swap(nums1[i],nums1[j]);    swapping the numbers if found smaller
+                }
+                i = i+1;                        moving one step forward with gap
+                j = j+1;  
+            }
+            
+            p = double(gap)double(2);    every time divide by 2
+            
+            if(p1)
+            {
+               gap = floor(p) ;      to overcoem the problem of ceil(0.5) it will convert it into 1 so it will never end to end the loop we used floor
+            }
+            else
+            {
+              gap = ceil(p);  
+            }
+            
+        }
+    }  
+    
+    
+};
