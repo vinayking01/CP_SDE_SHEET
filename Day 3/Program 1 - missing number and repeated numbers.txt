@@ -1,0 +1,62 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+int xor1;
+    
+int set_bit_no;
+int i ;
+int x=0;     // consider the repated number
+int y =0;    // consider the missing number
+int n = A.size();
+
+xor1 = A[0];
+for(int i = 1;i<n;i++)      // conatining XOR of All elements
+{
+    xor1 = xor1^A[i];
+}
+ 
+for(int i =1;i<=n;i++)       // XOR from the previous number obtained from 1  to n
+{
+    xor1 = xor1 ^ i;
+}
+ 
+set_bit_no = xor1 &~(xor1-1);  // finding the right most bit number
+                                 // created to basket 
+
+for(int i =0;i<n;i++)     
+
+{
+    if(A[i] & set_bit_no)        //by matching the set_bit_no
+    {
+        x = x^A[i];            // this basket is for missing number 
+    }
+    else{
+        y = y ^A[i];           // this basket is for contains repeated number
+    }
+}
+ 
+    for (int i = 1; i <= n; i++) {        /* putting again in same basket but now 1 to n ,i belongs to first set */
+        if (i & set_bit_no)
+          { 
+            x = x ^ i;
+          }
+
+        else
+            {                              /* i belongs to second set */
+            y = y ^ i;
+            }
+    }
+
+    int x_count = 0;
+    
+    for (int i=0; i<n; i++)            // cheching the number is swapped
+    {
+        if (A[i]==x)
+            x_count++;
+    }
+    
+    if (x_count==0)
+        return {y, x};
+    
+    return {x, y};
+    
+}
+
