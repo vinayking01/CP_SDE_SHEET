@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& a) {
+        int slow = a[0];                                //using two pointer
+        int fast = a[0];
+        
+        do
+        {                              // understand easily as linked list this is also knowm as tortoise algo
+            slow = a[slow];           //slow pointer moves 1 step
+            fast = a[a[fast]];        // fast pointer moves 2 step
+        }while(slow!=fast);           // the pointer breaks where it pointing the same element
+        
+        slow = a[0];                 // pointing the slow pointer back to first place
+        
+        
+                                    // now when we move one step with both pointer we will reacj the duplicate elements
+        
+        while(slow!= fast)
+        {
+            slow = a[slow];
+            fast = a[fast];
+        }
+        return slow;
+    }
+};
