@@ -1,0 +1,37 @@
+class Solution {
+public:
+    
+    double getpow(double x, long long int n1)
+    {
+        if(n1==1)
+        {
+            return x;                       // this is the stopping condition
+        }
+        
+        if(n1%2==0)
+        {
+            return getpow(x*x,n1/2);      // condition for even one
+        }
+        else
+        {
+            return (x * getpow(x*x,n1/2)); // condition for odd one
+        }
+    }
+    
+    double myPow(double x, int n) {
+     long long int n1 = n;
+        if(n1==0)
+        {
+            return 1;                     // if powwer is given 1
+        }
+        if(n1<0)
+        {
+         double k = getpow(x,-1*n1);      // if power is negative
+            return 1/k;
+        }
+        else
+        {
+            return getpow(x,n1);          // if power is positive
+        }        
+    }
+};
