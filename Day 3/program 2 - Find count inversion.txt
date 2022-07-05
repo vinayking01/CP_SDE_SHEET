@@ -2,7 +2,8 @@
 
 
 #include<bits/stdc++.h>
-long long modifiedMerge(long long arr[], int low, int mid, int high){
+long long modifiedMerge(long long arr[], int low, int mid, int high)
+{
     int i = low, j = mid, str=0;
     long long count_inversion=0;
     
