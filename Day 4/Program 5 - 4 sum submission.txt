@@ -1,0 +1,61 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());   // first do sorting
+        vector<vector<int>>ans;
+        
+        
+        for(int i=0;i<nums.size();i++)        // fixed one pointer
+        {
+            
+            for(int j=i+1;j<nums.size();j++)   // fixed 2nd pointer
+            {
+            
+                long two_elem_sum = nums[i]+nums[j];     // find the sum required
+                
+                long remaining_target =  target - two_elem_sum;
+                
+                int sum ;                            //select the remaining two pinters and then apply linear search algo same as 2 sum
+                int k1=j+1;
+                int n = nums.size();
+                int k2 = n-1;
+                while(k1<k2)
+                {
+                    sum = nums[k1]+nums[k2];
+                    if(sum<remaining_target)
+                    {
+                        k1++;
+                    }
+                    else if(sum>remaining_target)
+                    {
+                        k2--;
+                    }
+                    else
+                    {  
+                     vector<int> temp;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[k1]);
+                        temp.push_back(nums[k2]);
+                        ans.push_back(temp);
+                     while(temp[2]==nums[k1] && k1<k2){k1++;}        // to remove the duplicacy between k1 & k2
+                     while(temp[3]==nums[k2] && k1<k2){k2--;}        // to remove the duplicacy berween k2 and n
+                        
+                    }
+
+                }
+              while(j+1 <nums.size() && nums[j]==nums[j+1])       // to remove the duplicacy between j and k1
+              {
+                  j++;
+              }
+                
+        }
+            int p2 = nums[i+1];
+            while(i+1 <nums.size() && nums[i]==nums[i+1])       // to remove the duplicacy between i and j
+            {
+            i++;
+            }
+    }
+    return ans;
+    }
+};
