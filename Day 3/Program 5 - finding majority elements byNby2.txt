@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        if(nums.size()==0)
+        {
+            return 0;
+        }
+        int count =0;
+        int current_number = 0;
+        for(auto it :nums)
+        {
+            if(count==0)
+            {
+                current_number = it;
+            }
+            
+            if(current_number==it)
+            {
+                count++;
+            }
+            else
+            {
+                count--;
+            }
+        }
+        return current_number;
+    }
+};
