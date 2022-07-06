@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int modifiedMerge(vector<int>& arr, int l, int mid, int r){
+    int j = mid+1, str=0;
+    int cnt=0;
+        
+     for(int i=l;i<=mid;i++)
+     {  
+         while(j<=r && arr[i]>2LL*arr[j] )
+         {
+             j++;
+         }
+         cnt+= (j-(mid+1));   
+     }
+        vector<int> t;
+    int left = l, right = mid + 1;
+
+  while (left <= mid && right <= r) {
+
+    if (arr[left] <= arr[right]) {
+      t.push_back(arr[left++]);
+    } else {
+      t.push_back(arr[right++]);
+    }
+  }
+
+  while (left <= mid) {
+    t.push_back(arr[left++]);
+  }
+  while (right <= r) {
+    t.push_back(arr[right++]);
+  }
+
+  for (int i = l; i <= r; i++) {
+    arr[i] = t[i - l];
+  }
+  return cnt;
+}
+
+int preCall(vector<int>& arr, int l, int r)
+{
+if (l >= r) return 0;
+  int mid = (l + r) / 2;
+  int inv = preCall(arr, l, mid);
+  inv += preCall(arr, mid + 1, r);
+  inv += modifiedMerge(arr, l, mid, r);
+  return inv;
+}
+
+int reversePairs(vector<int>& arr) {
+        return preCall(arr, 0, arr.size()-1);
+    }
+};
