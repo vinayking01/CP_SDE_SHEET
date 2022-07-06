@@ -1,0 +1,68 @@
+class Solution {
+public:
+    
+// recursive Approach 1- O(exponential)    
+    
+//     int paths(int i,int j,int m,int n)
+//     {
+//         if(i==m && j==n)
+//         {
+//             return 1;
+//         }
+//         if(i>m || j>n)
+//         {
+//             return 0;
+//         }
+        
+//         return paths(i+1,j,m,n) + paths(i,j+1,m,n);
+//     }
+    
+    // this is the dynamic approach it will take time of O(m*n)
+    
+    
+//     int uniquePaths(int m, int n) {
+//         return paths(0,0, m-1, n-1);
+//     }
+    
+//       int paths(int i,int j,int m,int n,vector<vector<int>> &dp)
+//     {
+//         if(i==m && j==n)
+//         {
+//             return 1;
+//         }
+//         if(i>m || j>n)
+//         {
+//             return 0;
+//         }
+//         if(dp[i][j]!=-1)
+//         {
+//             return dp[i][j];
+//         }
+//         return paths(i+1,j,m,n,dp) + paths(i,j+1,m,n,dp);
+//     }
+    
+//     int uniquePaths(int m, int n) {
+//         vector<vector<int>> dp(m,vector<int> (n,-1));
+//         return paths(0,0, m-1, n-1,dp);
+//     }  
+    
+    
+    // Approach 3 - Combinatrics Method is used
+    
+    
+    int uniquePaths(int m, int n) {
+        
+        int total_steps  = m+n-2;
+        int max_right_steps = m-1;   // we can use maximum down steps instead of this 
+        
+                                    // two types of combination formed 
+                                    // m+n-2(C)m-1  , m+n-2(C)n-1
+        double answer=1;
+        for(int i =1;i<=max_right_steps;i++)
+        {
+            answer = answer *(total_steps-max_right_steps+i)/i;   // no. of combination 
+            
+        }
+       return (int)answer; 
+    }  
+};
