@@ -1,0 +1,24 @@
+class Solution {
+public:
+       int lengthOfLongestSubstring(string s) {
+      vector<int> m(256,-1);
+                                            // two pointer approach like kadana's Algo
+           int left =0;
+           int right =0;
+           int len =0;
+           
+           while(right<s.size())
+           {
+               if(m[s[right]]!=-1)           // if this chracter already exist then update with index+1
+               {
+                 left = max(left,m[s[right]]+1);
+               }
+               m[s[right]]=  right;         // if update the index below if founf or not found
+               
+               len = max(len,right-left+1);  
+               right++;
+           }
+     return len;      
+    }
+
+};
