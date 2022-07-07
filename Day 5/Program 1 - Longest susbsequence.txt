@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set <int> s;    // it will take o(1) times for all operation
+        
+        for(auto it:nums)
+        {
+            s.insert(it);
+        }
+        int ans =0;
+       for(auto it:nums)
+       {
+           if(s.find(it-1)!=s.end())       // meaning it is not starting point
+           {
+               continue;
+           }
+           else                            // it is starting point so move forward and count
+           {
+             int count=0;
+             int number = it;
+             while(s.find(number)!=s.end())
+             {
+                 count++;
+                 number++;    
+             }
+               
+             ans = max(count,ans)  ;
+           }
+       }
+    return ans;
+    }
+    
+};
