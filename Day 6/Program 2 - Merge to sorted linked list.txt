@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1==NULL)
+        {
+            return list2;
+        }
+        if(list2==NULL)
+        {
+        return list1;
+        }
+        
+        if(list1->val>list2->val)
+        {
+            swap(list1,list2);         // choosing the starting head of the linked list
+        }
+        ListNode*  merge_head = list1;    // storing it
+        
+        
+        while(list1!=NULL && list2!=NULL)
+        {
+            ListNode* prev = NULL;
+            while(list1!=NULL && list1->val<=list2->val)   // please keep in mind if you use list!= null after the tsecond adn opeartion then it will give error of address because it is first matching first coondition then second so use cleverly 
+            {
+                prev = list1;
+                list1 = list1->next;
+            }
+            prev->next = list2;         
+            swap(list1,list2);           // changing head always to be point the minium no. always
+        }
+        return merge_head;
+    }
+};
