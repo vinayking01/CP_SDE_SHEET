@@ -1,0 +1,91 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+
+
+ */
+
+// Appproach -1
+
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* pointer=head;
+        int n=0;
+        while(pointer!=NULL)
+        {
+            pointer = pointer ->next;
+            n++;
+        }
+        int i=n/2;
+        ListNode* position = head;
+        while(i>0)
+        {
+        position = position->next;
+        i--;
+        }
+        // now reversing the half linked list
+        ListNode* start=head;
+        ListNode* end;
+        ListNode* prev = NULL;
+        ListNode* current_p = position;
+        ListNode* next_p ;
+        
+        while(current_p!=NULL)
+        {
+        next_p = current_p->next;
+        current_p->next =prev;
+        prev = current_p;
+        current_p = next_p;        
+        }
+        end = prev;
+        
+        int time= n/2;
+        while(time>0)
+        {
+            // cout<<start->val;
+            // cout<<endl;
+            // cout<<end->val;
+            if(start->val != end->val)
+            {
+             return false;   
+            }
+            start = start->next;
+            end = end->next;
+            time--;
+        }
+        return true;
+    }
+};
+
+
+
+// Approach -2 
+
+ if(head==NULL||head->next==NULL) return true;
+        
+    node* slow = head;
+    node* fast = head;
+        
+    while(fast->next!=NULL&&fast->next->next!=NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+        
+    slow->next = reverse(slow->next);
+    slow = slow->next;
+    node* dummy = head;
+        
+    while(slow!=NULL) {
+        if(dummy->num != slow->num) return false;
+        dummy = dummy->next;
+        slow = slow->next;
+    }
+    return true;
