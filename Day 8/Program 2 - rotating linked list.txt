@@ -1,0 +1,101 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        
+//         ListNode* p = head;
+//         int size=0;
+//         while(p!=NULL)
+//         {
+//         size++;    
+//         p=p->next;
+            
+//         }
+//         if(k == 0 || k== size)
+//         {
+//             return head;
+//         }
+//         if(size==0)
+//         {
+//             return NULL;
+//         }
+//         int var = k%size;
+//         int modulo_loop = (k>size)? (var)  : k;
+           
+//         if(modulo_loop==0)
+//         {
+//         return head;    
+//         }    
+//         int loop = size - modulo_loop;
+//         int i=0;
+//         ListNode* prev = NULL;
+//         ListNode* next_node = head;
+//         while(i<loop)
+//         {
+//             prev= next_node;
+//             next_node = next_node->next;
+//             i++;
+//         }
+//         prev->next = NULL;
+//         ListNode * start = head;
+//         head= next_node;
+//         ListNode* new_head = head;
+//         prev = NULL;
+//         while(new_head!=NULL)
+//         {
+//             prev  = new_head;
+//             new_head = new_head ->next;
+//         }
+//         prev->next = start;
+        
+        ListNode* temp= head;
+        if(temp==NULL)
+        {
+            return head;
+        }
+        int N =0;
+        while(temp!=NULL)
+        {
+            temp = temp ->next;
+            N++;
+        }
+        int node_rotate = k%N;
+        // cout<<node_rotate<<k<<N;
+        if(node_rotate==0)
+        {
+            return head;
+        }
+        else 
+        {int k = node_rotate;
+         int m = N-k-1;    // steps before k nodes
+         int n = N-m-2;    // steps after k nodes to add in starting
+         // cout<<m<<n;
+         ListNode* start = head;
+         while(m>0)
+         {
+          start = start->next;   
+          m--;   
+         }
+         ListNode* afterNode = start->next;
+         ListNode* newHead = afterNode;
+         start->next = NULL;
+         while(n--)
+         {
+             afterNode = afterNode->next;
+         }
+         afterNode->next = head;
+         head = newHead;
+        }
+        
+        return head;
+    }
+};
