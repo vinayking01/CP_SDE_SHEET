@@ -1,0 +1,97 @@
+class Solution {
+public:
+    int trap(vector<int>& arr) {
+//1st approach        
+        
+//         int sum =0;
+//         int n= arr.size();
+//         for(int i =0;i<n;i++)
+//         {
+//             int k =i;
+//             int left_index=0,right_index = 0;
+//             while(k>=0)
+//             {
+                
+//                 left_index = max(left_index,arr[k]);     
+//                 k--;
+//             }
+//             int j = i;
+//             while(j<=arr.size())
+//             {     
+//                 right_index = max(right_index,arr[j]);
+//                 j++;
+                
+//             }
+//             int waterfill = min(left_index,right_index);
+           
+//             sum = sum + waterfill - arr[i];     
+//         } 
+//         return sum;
+        
+        
+//2nd approach       
+        
+        
+//         int n = arr.size();
+//         int leftmax[n];int prevbig=-1;
+//         int rightmax[n];
+//         for(int i =0;i<n;i++)
+//         {
+//             if(prevbig<arr[i])
+//             {
+//                 leftmax[i]= arr[i];
+//                 prevbig= arr[i];
+//             }
+//             else{
+//                 leftmax[i]= prevbig;
+//             }
+            
+//         }
+//         prevbig=-1;
+//         for(int i =n-1;i>=0;i--)
+//         {
+//             if(prevbig<arr[i])
+//             {
+//                 rightmax[i]= arr[i];
+//                 prevbig= arr[i];
+//             }
+//             else{
+//                 rightmax[i]= prevbig;
+//             }
+            
+//         }
+//         int sum=0;
+//         for(int i=0;i<n;i++)
+//         {
+//             sum= sum + min(leftmax[i],rightmax[i]) - arr[i];
+//         }
+//        return sum;
+//}
+      
+        
+//3rd approach
+        int n = arr.size();
+  int left = 0, right = n - 1;
+  int res = 0;
+  int maxLeft = 0, maxRight = 0;
+  while (left <= right) {
+    if (arr[left] <= arr[right]) {
+      if (arr[left] >= maxLeft) {
+        maxLeft = arr[left];
+      } else {
+        res += maxLeft - arr[left];
+      }
+      left++;
+    } else {
+      if (arr[right] >= maxRight) {
+        maxRight = arr[right];
+      } else {
+        res += maxRight - arr[right];
+      }
+      right--;
+    }
+  }
+  return res;
+        
+    }
+};
