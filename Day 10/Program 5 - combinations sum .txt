@@ -1,0 +1,37 @@
+class Solution {
+public: 
+    
+    
+    void finding_combinations(int index,vector<vector<int>> & ans,vector<int>& ms,int target,vector<int> & candidates)
+    {
+        if(index == candidates.size())
+        {
+            if(target==0)
+            {
+                ans.push_back(ms);
+            }
+            return ;
+        }
+        
+        if(candidates[index]<=target)
+        {
+            ms.push_back(candidates[index]);
+            
+            finding_combinations(index,ans,ms,target-candidates[index],candidates);
+            
+            ms.pop_back();
+        }
+        finding_combinations(index+1,ans,ms,target,candidates); 
+    }    
+    
+    
+    
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+       vector<vector<int>> ans;
+       vector<int> ms;
+        finding_combinations(0,ans,ms,target,candidates);
+        return ans;
+        
+    }
+};
