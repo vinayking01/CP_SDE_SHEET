@@ -1,0 +1,95 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Item{
+    int value;
+    int weight;
+};
+
+
+ // } Driver Code Ends
+//class implemented
+/*
+struct Item{
+    int value;
+    int weight;
+};
+*/
+
+
+class Solution
+{
+    public:
+    //Function to get the maximum total value in the knapsack.
+    
+    bool static comparison(Item a,Item b)
+    {
+        double s = (double)a.value/(double)a.weight;
+        double y = (double)b.value/(double)b.weight;
+        if(s<y) return false;
+        else return true;
+        
+    }
+    
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+       sort(arr,arr+n,comparison);  // so that we do not need extra array for storing according to their  fractions
+       
+       double total_profit  =0;
+       double total_bag_weight= 0;
+       for(int i=0;i<n;i++)
+      {
+         int temp_weight = arr[i].weight;
+         
+       if((total_bag_weight + temp_weight)< W)
+       {
+           total_bag_weight += arr[i].weight;
+           total_profit +=  arr[i].value;
+       }
+       else
+       { double remaining_weight = W-total_bag_weight;
+         double percent = (((double)remaining_weight)*(double)(100))/(double)arr[i].weight;   // here getting the perecent of weight we need
+        
+         double profit_percent = ((double)arr[i].value *(double)percent) /(double)(100);     // getting the profit percent of profit
+             if(int(total_bag_weight+ remaining_weight)<=W)
+             {
+                 total_bag_weight += remaining_weight;
+                 total_profit += profit_percent;
+                 break;
+             }
+                
+       }
+        
+       }
+    
+     return total_profit;   
+    }
+        
+};
+
+
+// { Driver Code Starts.
+int main()
+{
+	int t;
+	//taking testcases
+	cin>>t;
+	cout<<setprecision(2)<<fixed;
+	while(t--){
+	    //size of array and weight
+		int n, W;
+		cin>>n>>W;
+		
+		Item arr[n];
+		//value and weight of each item
+		for(int i=0;i<n;i++){
+			cin>>arr[i].value>>arr[i].weight;
+		}
+		
+		//function call
+		Solution ob;
+		cout<<ob.fractionalKnapsack(W, arr, n)<<endl;
+	}
+    return 0;
+}  // } Driver Code Ends
