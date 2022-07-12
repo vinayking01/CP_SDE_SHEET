@@ -1,0 +1,38 @@
+int findMinimumCoins(int amount) 
+{
+    vector<int> nums(9,-1);
+    nums[0]= 1000;
+    nums[1] = 500;
+    nums[2]=  100;
+    nums[3] = 50;
+    nums[4] = 20;
+    nums[5] = 10;
+    nums[6] = 5;
+    nums[7] = 2;
+    nums[8] = 1;
+        
+    int remaining_amount = amount;
+    int given_amount = 0;
+    int count =0;
+    
+    for(int i =0;i<nums.size();i++)
+    {    
+        if(nums[i]<=remaining_amount)
+        {   
+/
+            int p = remaining_amount / nums[i];
+             int s  = remaining_amount- p*nums[i];
+            given_amount = p*nums[i];
+            remaining_amount = s;
+            count+=p;
+        }
+        if(remaining_amount==0)
+        {
+            break;
+        } 
+    }
+
+return count;
+
+
+}
