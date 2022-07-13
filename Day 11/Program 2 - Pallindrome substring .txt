@@ -1,0 +1,46 @@
+class Solution {
+public:
+    void pallindrom(string s,int index,vector<vector<string>>& ans,vector<string>& ms)
+    {  
+       if(index == s.size())
+        {
+         ans.push_back(ms);
+         return;
+        }
+     
+     for(int i = index;i<s.size();i++)
+     {
+        if(isPalindrome(s,index,i))
+        {
+         string s1 = s.substr(index,i - index +1)   ;
+         ms.push_back(s1);
+         pallindrom(s,i+1,ans,ms);
+         ms.pop_back();   
+        } 
+     }
+        
+    }
+    bool isPalindrome(string k ,int i,int j)
+    {
+        while(i<=j)
+        {
+        if(k[i]!=k[j])
+        {
+            return false;
+        }
+        i++;
+        j--;
+        }
+        return true;
+    }
+    
+    
+    vector<vector<string>> partition(string s) {
+        int n = s.size();
+        vector<vector<string>> ans;
+        vector<string> ms;
+        pallindrom(s,0,ans,ms);
+        return ans;
+        
+    }
+};
