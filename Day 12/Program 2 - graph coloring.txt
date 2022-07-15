@@ -1,0 +1,31 @@
+bool isValidcolor(int node,bool graph[101][101],int color[] ,int current_color ,int vertex)
+{
+    for(int k = 0;kvertex;k++)
+    {
+        if(k!=node && graph[k][node] ==1 && color[node]== current_color) return false;
+    }
+    return true;
+}
+
+bool solve_coloring(int node,bool graph[101][101],int m,int n,int color [])
+{
+    if(node == n)
+    {
+        return true;
+    }
+    for(int k = 0 ; km;k++)
+    {
+        if(isValidColor(node,graph,color,k,n))
+        {
+            color[node] = 1;
+            
+            if(solve_coloring(node+1,graph,m,n,color)) return true;
+            
+            color[node] =0;
+        }
+
+    }
+    
+return false;    
+    
+}
