@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+
+bool ispresent(string l,vector<string>&dictonary)
+{
+    if(find(dictonary.begin(),dictonary.end(),l)!=dictonary.end())
+    {
+        return true;
+    }
+    return false;
+}
+
+void allstrings(string s, vector<string> &dictonary,int index,vector<string> &ans,string p)
+{     if(index == s.size())
+       { ans.push_back(p);
+        return ;
+       }
+        
+ for(int i=index,j=index;j<s.size();j++)
+ {    string l =  s.substr(i,j-i+1);
+  
+//       cout<<l<<" start "<<s[i]<<" end "<<s[j]<<endl; 
+     if(ispresent(l,dictonary))
+     {  string temp1 = l;
+        string temp2 = p;
+        p = p+temp1+" ";
+//       cout<<"p "<<p<<endl;
+        allstrings(s,dictonary,j+1,ans,p);
+        p = temp2;
+     }
+ }
+
+   return ; 
+}    
+
+
+
+
+vector<string> wordBreak(string &s, vector<string> &dictionary)
+{
+    vector<string>ans;
+    
+    allstrings(s,dictionary,0,ans,"");
+   return ans;
+}
