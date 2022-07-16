@@ -1,0 +1,45 @@
+// Approach - 1 
+
+double multiply(double mid, int n)
+{   double ans = 1.0;
+   int  i=1;
+    while(i<=n)
+    {
+        ans = ans* mid;
+        i= i+1;
+    }
+ return ans;
+}
+
+double findNthRootOfM(int n, long long m) {
+ 	double mid;
+     double low = 1;
+     double high = m;
+   double epsilon = 1e-6;     // it will use to get the accurate number uopto this decimal places
+    
+     while((high-low)>epsilon)           // when high == low then only it will break meaning after decimal at least first  6 digit it equal than its differnece  zero (approximate same upto this digit)
+     {    mid = double(high+low)/2.0;
+         if(multiply(mid,n)>m)           
+         {
+             high = mid;
+         }
+         else
+         {                                                        			 
+             low = mid;                                             
+         }
+     }
+     return low;
+   
+}
+
+
+
+// Approach -2 
+
+double findNthRootOfM(int n, long long m) {
+ double t=1.000000/n;
+    cout<<t<<endl;
+    double ans=pow(m,t);
+    return ans;
+
+}
