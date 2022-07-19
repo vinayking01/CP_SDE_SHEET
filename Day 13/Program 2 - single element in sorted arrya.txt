@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& arr)
+    {
+        int left = 0;
+        int right = arr.size()-1;
+        
+        int mid ;
+        if(right==0)                              //corner condition
+        {
+            return arr[0];
+        }
+        if(right>=1 && arr[0]!=arr[left+1])       // edge cases
+        {
+        return arr[0];
+        }
+        if(arr[right]!=arr[right-1])              //edge cases
+        {
+            return arr[right];
+        }
+        
+        while(left<=right)
+        {
+             mid = (left+right)/2;
+            if(arr[mid-1]!=arr[mid] && arr[mid+1]!=arr[mid])       
+            {
+                return arr[mid];              // base condition
+            }
+            else if( (mid%2!=0 && (arr[mid]== arr[mid-1])) || (mid%2==0 &&(arr[mid]==arr[mid+1])))    // left array
+            {
+              left = mid+1;
+                        
+            }   
+            else
+            {
+              right = mid-1;                  // right array
+            }          
+        }
+     return -1;   
+    }
+};
