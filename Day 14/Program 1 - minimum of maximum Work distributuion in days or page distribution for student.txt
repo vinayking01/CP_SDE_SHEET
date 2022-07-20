@@ -1,0 +1,43 @@
+bool possible_allocation(vector<int>& A,int mid_barrier,int student)
+ {  long cnt = 0;
+    long long sumAllocated = 0;
+  for (int i = 0; i < A.size(); i++) {
+    if (sumAllocated + A[i] > mid_barrier) {
+      cnt++;
+      sumAllocated = A[i];
+      if (sumAllocated > mid_barrier) return false;
+    } else {
+      sumAllocated += A[i];
+    }
+  }
+  if (cnt < student) return true;
+  return false;
+ }
+ 
+
+long long ayushGivesNinjatest(int B, int n1, vector<int> A) 
+{	if (B > A.size()) return -1;
+    long long minimum_page = A[0];
+    long long maximum_page = A[n1-1];
+    long long student = B;
+    for (int i = 0; i < A.size(); i++) {
+        long long p = A[i];
+    maximum_page = maximum_page + p;
+    minimum_page = min(minimum_page, p);
+  }
+    long long mid_barrier;
+    while(minimum_page<=maximum_page)
+    {
+        mid_barrier = (minimum_page+maximum_page)/2;
+        if(possible_allocation(A,mid_barrier,student))
+        {
+            // res = mid_barrier;
+            maximum_page =  mid_barrier-1; 
+        }
+        else
+        {
+            minimum_page = mid_barrier+1;
+        }
+    }
+    return minimum_page;
+}
