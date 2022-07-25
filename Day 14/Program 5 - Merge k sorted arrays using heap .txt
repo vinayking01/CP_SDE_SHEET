@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+class data
+{
+    public:
+    int value;
+    int Arr_num;
+    int value_pos;
+    
+    data()
+    {
+        value = 0;
+        Arr_num = 0;
+        value_pos =0;
+    }
+};
+struct mycomp{
+bool operator()(data &d1,data &d2)
+{
+    return (d1.value>d2.value);
+}
+};
+
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k)
+{
+    priority_queue<data,vector<data>,mycomp> pq;
+    vector<int> answer;
+    for(int i=0;i<k;i++)
+    {
+        data d;
+        d.value=kArrays[i][0];
+        d.Arr_num=i;
+        d.value_pos=0;
+        pq.push(d);
+    }
+    
+    while(pq.empty()!=1)
+    {
+        data curr = pq.top();
+        pq.pop();
+        int apos = curr.Arr_num;
+        int anumpos = curr.value_pos;
+        answer.push_back(curr.value);
+        if(anumpos+1<kArrays[apos].size())
+        {
+        data d;
+        d.value=kArrays[apos][anumpos+1];
+        d.Arr_num=apos;
+        d.value_pos=anumpos+1;
+        pq.push(d);
+        }
+    }
+    return answer;   
+}
