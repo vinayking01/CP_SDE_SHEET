@@ -1,0 +1,55 @@
+class Queue {
+    int *A;
+    int front1;
+    int rear;
+    int currsize;
+    
+public:
+    Queue() {
+       A = new int[10000];
+       front1=0;
+        rear =0;
+        currsize =0;
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        if(front1==rear)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void enqueue(int data) {
+       if(rear>10000)
+       { return;
+       }
+        currsize++;
+        A[rear] = data;
+        rear++;
+       return; 
+    }
+
+    int dequeue() {
+       if(isEmpty())
+       {
+           return -1;
+       }
+        int ele  = A[front1];
+        A[front1] = -1;
+        front1++;
+        currsize--;
+        return ele;
+    }
+    
+
+    int front() {
+        if(front1==rear)
+        {
+            return -1;
+        }
+       return A[front1];
+    }
+};
