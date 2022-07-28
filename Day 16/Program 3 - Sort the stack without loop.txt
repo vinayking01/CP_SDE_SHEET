@@ -1,0 +1,23 @@
+void insertsorted(stack<int> & st, int e)
+{
+    if(st.empty() || st.top()<e)
+    {
+       st.push(e);
+        return ;
+    }
+    int p = st.top();
+    st.pop();
+    insertsorted(st,e);
+    st.push(p);
+    
+}
+void sortStack(stack<int> &st)
+{        if(st.empty())
+        {        
+            return ;
+        }
+         int e = st.top();
+                 st.pop();
+         sortStack(st);
+         insertsorted(st,e);
+}
