@@ -1,0 +1,79 @@
+class LRUCache {
+public:
+    class Node{
+        //here i am declaring a doubly linked list globally
+        //this will help for constant time insertion and deletion from head and tail respectively
+        public:
+        int key;
+        int val;
+        Node * prev;
+        Node * next;
+        //constructor for key and value
+        Node (int key, int val){
+            this->key=key;
+            this->val=val;
+        }
+    };
+    //dummy nodes head and tail to keep tabs of the doubly linked list
+    //so put key and value of them as -1
+    //they will be used like a pointer to help with insertion and deletion
+    Node * head= new Node(-1,-1);
+    Node * tail= new Node(-1,-1);
+    //a hashmap for storing value of node and keys as they provide constant lookup 
+    unordered_map<int, Node*> mp;
+    int cache_capacity;
+    
+    //this function will remove the node from end of linkedlist
+    void removenode(Node * currnode){
+        Node * next_node=currnode->next;
+        Node * prev_node=currnode->prev;
+        
+        next_node->prev=prev_node;
+        prev_node->next=next_node;
+    }
+    //this function will add currnode to the head of the linked list
+    void addnode(Node * currnode){
+        currnode->next=head->next;
+        currnode->prev=head;
+        currnode->next->prev=currnode;
+        head->next=currnode;
+    }
+    
+    LRUCache(int capacity) {
+        //make the capacity of the cache and initialize an empty double linked list
+        this->cache_capacity=capacity;
+        head->next=tail;
+        tail->prev=head;
+    }
+    
+    int get(int key) {
+        if(mp.find(key)==mp.end()) return -1;
+        //if key is found on the hash map we simply get the value of the particular key and add it back after deletion
+        //as it is our last recently used cache
+        Node * currnode=mp[key];
+        int result=currnode->val;
+        mp.erase(key);
+        removenode(currnode);
+        addnode(currnode);
+        mp[key]=head->next;
+        return result;
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key)!=mp.end()){
+            //when key is there in the hashmap
+            Node * currnode=mp[key];
+            mp.erase(key);
+            removenode(currnode);
+        }
+        //if the size of hash map is same as capacity we need to remove the last recently accessed node
+        //then we can insert the new node key and value
+        if(mp.size()==cache_capacity){
+            mp.erase(tail->prev->key);
+            removenode(tail->prev);
+        }
+        addnode(new Node(key, value));
+        mp[key]=head->next;
+    }
+
+};
