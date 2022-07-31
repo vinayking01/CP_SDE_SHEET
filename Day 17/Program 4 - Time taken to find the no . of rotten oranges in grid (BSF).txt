@@ -1,0 +1,60 @@
+class Solution {
+public:
+        
+    queue<pair<int,int>>rotten;
+
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int m = grid.size();
+        int n= grid[0].size();
+        int seconds=0;
+        int totaloranges =0;
+        for(int i =0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==2)
+                {
+                    rotten.push({i,j});
+                }
+                if(grid[i][j]!=0)
+                {
+                  totaloranges++;   
+                }
+                
+            }
+        }
+        
+        if(grid.size()==0)
+        {
+            return -1;
+        }
+        int cnt =0;
+        
+        while(!rotten.empty())
+        {
+         int k = rotten.size();
+         cnt += k;
+         while(k--)
+            {
+            int dx[4]= {0,1,0,-1};
+            int dy[4]= {1,0,-1,0};
+            int mx = rotten.front().first;
+            int my = rotten.front().second;
+            rotten.pop();
+            for(int i=0;i<4;i++)
+               {
+                int x = dx[i]+mx;
+                int y = dy[i]+my;   
+                if(x<0 || y<0 || x>=m || y>=n || grid[x][y]!=1) continue;
+                
+                grid[x][y]=2;
+               rotten.push({x,y});                
+                }
+          
+            }  
+            if(!rotten.empty()) seconds++;     
+        }
+        return (cnt == totaloranges)?seconds:-1;
+    }
+};
