@@ -1,0 +1,61 @@
+class Solution {
+public:
+
+    
+    string longestPalindrome(string s) {
+    int start =0;
+    int end =0;
+    int old_size = 0;
+        if(s.size()==1)
+        {
+            return s;
+        }
+        else if(s.size()==0)
+        {
+            return "";    
+        }
+        
+       for(int i =0;i<s.size();i++)
+       {   
+           // for odd
+           int low=i-1, high=i+1;
+           while(low>=0 && high<s.size()  && s[low]==s[high])
+           {
+              
+               if(high-low+1>old_size)
+               {
+                   start = low;
+                   end = high;
+                   old_size = end-start +1;
+                   // cout<<old_size;
+                   
+               }
+               low--;
+               high++;
+           }
+           
+        // for even length substring if formed
+           
+        low = i;
+        high = i+1 ;  
+        while(low>=0 &&  high< s.size() && s[low]==s[high])
+            {
+               if(high-low+1>old_size)
+               {
+                   start = low;
+                   end = high;
+                   old_size = end-start+1;
+                   // cout<<old_size<<endl;
+               }
+               low--;
+               high++;
+           }  
+       }
+       string ans=""; 
+      for(int i =start;i<=end;i++)
+      {
+          ans += s[i];
+      }
+        return ans;
+    }
+};
