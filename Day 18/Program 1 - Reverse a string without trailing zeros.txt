@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        int left =0;
+        int right = s.size()-1;
+        string temp ="";
+        string ans  ="";
+        while(left<=right)
+        {
+            if(s[left]!=' ')
+            {
+                temp += s[left];
+            }
+            else
+            {
+                if(ans!="")               // if it second time so add it accordance to space
+                {
+                    if(temp!="")          //when we got the space anywhere
+                    {
+                      ans = temp + " " + ans;
+                    }
+                }
+                else
+                {
+                    ans = temp;           // first time we do not store the answer so simply store it wihtout space
+                }
+                temp ="";                 // to assign the new string everytime 
+            
+            }
+            left++;
+        }
+        if(temp!="")
+        {   if(ans!="")  ans = temp +" "+ans;
+            else ans = temp;
+           
+        }
+        
+        return ans;
+    }
+};
