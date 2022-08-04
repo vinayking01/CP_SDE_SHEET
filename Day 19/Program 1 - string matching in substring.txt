@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool issubstring(string repeat1, string sub)
+    {
+        int N = sub.size();
+        int M = repeat1.size();
+      
+        
+        for(int i =0;i<=M-N;i++)       // so we are ignonring and checking the charcter from starting
+        {   int j;
+            for( j =0;j<N;j++)
+            {  
+                if(repeat1[i+j]!=sub[j]) break;      //if doesn't match come outside and move to the next character
+                
+            }
+            if(j==N)
+            {
+                return true;
+            }   
+        }
+        
+      return false;  
+    }
+    
+    
+    int repeatedStringMatch(string a, string b) {
+        int count =1;
+        string s = a;
+        while(s.size()<b.size())     //atleast rquired total string we can form
+        {
+            s+=a;
+            count++;
+        }
+        
+        if(issubstring(s,b)) return count;     // we will check when we have atleast string
+        if(issubstring(s+a,b)) return count+1;   // we will check it by increasing once if previous statement not worked
+        
+      return -1;  
+    }
+};
