@@ -1,0 +1,136 @@
+// platfrom coding ninjas - 
+/*
+Okay so give me a bit of your time and I'll try my best to explain the solution.
+
+ 
+
+Naive Solution:
+
+ 
+
+s = “ababad” 
+
+ 
+
+Now for this the solution would be 1. how????
+
+ 
+
+we can add ‘d’ to the front and the string s would become “dababad” which is a palindrome.
+
+ 
+
+→ How to write a code for this???
+
+ 
+
+Check if the string is palindrome or not. If palindrome return 0.
+If the string isn't a palindrome. Delete the last element and check if s becomes palindrome. We are deleting the last element because of two reasons
+We can add characters only to the front.
+We delete the last element to check if it is the hurdle that is preventing the string to become palindrome so that we can add the same character in the front to make it a palindrome.
+   3. Keep on deleting the last character until s becomes empty or palindrome.
+
+   4. Return the number of deleted characters.
+
+ 
+
+Space complexity  = O(1) 
+
+Time Complexity = O(n^2)  → checking for palindrome for each character we delete. This could be n in the worst case (ex - “abcde”).
+
+ 
+
+Looking at the time constraint (n <= 10^5) only O(nlogn) or O(n) time complexity would be acceptable.
+
+ 
+
+Optimal Solution: (Using KMP algorithm)
+
+ 
+
+Note → I won't be explaining the algorithm here. You can refer any online resource to understand it. I would be explaining the intuition behind using KMP.
+
+ 
+
+s = “ababad”
+
+ 
+
+Lets make a new string → ns = s + $ + reverse(s)
+
+Here $ chan be any character that is not present in s.
+
+ 
+
+ns = ababad$dababa
+
+ 
+
+lps = [0 0 1 2 3 0 0 0 1 2 3 4 5]
+
+ 
+
+solution = s.length() - lps.back() = 6 - 5 = 1
+
+ 
+
+Why does this solution work???
+
+ 
+
+lps[i] → length of suffix from index ‘i’ that is also a prefix.
+
+ 
+
+As we see in the previous approach we were trying to maximize the number of characters from the front (deleting the minimum element from the back) so that the remaining string is a palindrome.
+Now the longest suffix from the last element in ns which is also a prefix of ns will give us the maximum elements that can be kept in the string s so that it is a palindrome.
+ 
+
+see this → lps.back() = 5 so suffix = “ababa” (remember last n elements are reversed) prefix of length 5:  prefix = “ababa”. As you can see it's a palindrome.
+
+ 
+
+Pro Tip → To wrap your head around the solution try it by yourself using pen and paper.
+
+ 
+
+Here is the code. Please upvote if you got to learn something.
+
+ */
+
+#include<bits/stdc++.h>
+
+vector<int> lps(string s)
+{
+    int n = s.size();
+    vector<int> lps_table (n,0);
+    
+    for(int i =1;i<n;i++)
+    {
+        int j= lps_table [i-1];
+        while(j>0 && s[i]!=s[j])
+        {
+            j = lps_table[j-1];
+        }
+        if(s[i]==s[j])
+        {
+            j++;
+        }
+       lps_table[i] = j; 
+    }   
+  return lps_table;  
+}
+
+
+
+int minCharsforPalindrome(string str) {
+	
+    string p = str+'$';
+    reverse(str.begin(),str.end());
+    p = p+str;
+    vector<int> vp= lps(p);
+    int m = vp.size();
+    
+    int minimum_character_need = str.size()- vp[m-1];
+    return minimum_character_need;
+}
