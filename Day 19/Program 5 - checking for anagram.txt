@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+      vector<int> m(26,0);
+        // taking use of hasing 
+        for(int i =0;i<s.size();i++)
+      {
+        int ele = s[i];
+        int place =  ele - 97;   
+        m[place]++;
+      }
+        
+        
+      //now checking if other string character present in hash then decrease the value and it lead to vlaue zero which means character found  
+    for(int i=0;i<t.size();i++)
+    {   int ele = t[i];
+        int place = ele - 97;
+        m[place]--;
+    }    
+     // checking if some character is remaining
+    for(auto it : m)
+    {
+        int value = it;
+        if(it!=0)
+        {
+            return false;
+        }
+    }
+    
+        
+        return true;
+    }
+};
