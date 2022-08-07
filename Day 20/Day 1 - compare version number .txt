@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+       int g1=0,g2=0;
+        int n1 = version1.size(),i=0,j=0;
+        int n2 = version2.size();
+      while(i<n1 || j<n2)
+        {   
+            while(i<n1 && version1[i]!='.')
+            {   int p = version1[i];
+                int el = p -48;
+                g1 = g1*10 + el;
+                i++;
+             
+            }
+            // cout<<g1<<endl;
+            while(j<n2 && version2[j]!='.')
+            {
+                int p = version2[j];
+                int el = p - 48;
+                g2 = g2*10 +el;
+                j++;
+            }
+            // cout<<g2;
+            if(g1>g2)
+            {
+                return 1;
+            }
+            else if(g1<g2)
+            {
+                return -1;
+            }
+            g1 =0;
+            g2 =0;
+          i++;
+          j++;
+        
+        
+      }
+        return 0;
+        
+    } 
+};
