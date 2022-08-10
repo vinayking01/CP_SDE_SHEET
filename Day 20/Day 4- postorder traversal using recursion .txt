@@ -9,18 +9,63 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// class Solution {
+// public:
+//     vector<int>p;
+//     vector<int> postorderTraversal(TreeNode* root) {
+//       if(root==NULL)
+//       {
+//       return p;  
+//       }  
+        
+//         postorderTraversal(root->left);
+//         postorderTraversal(root->right);
+//         p.push_back(root->val);
+//         return p; 
+//     }
+    
+// };
+
+
+
+// iterative approach  1st - Using two stack
+
+#include<bits/stdc++.h>
+
 class Solution {
 public:
-    vector<int> p;
-    vector<int> preorderTraversal(TreeNode* root) {
-          if(root==NULL)
-        {
-        return p;
-        }
-        p.push_back(root->val);
-        preorderTraversal(root->left);
+    vector<int>p;
+    vector<int> postorderTraversal(TreeNode* root) {
+      stack<TreeNode*> s1;
+      stack<int>s2;
+        TreeNode * temp;
+      if(root==NULL)
+          return p;
+      s1.push(root);
+      while(!s1.empty())
+      { 
+          temp = s1.top();
+          s1.pop();
+          if(temp->left !=NULL)
+          {
+            s1.push(temp->left);
+          
+          }
+          if(temp->right!=NULL)
+          {
+             s1.push(temp->right);
+          }
+          s2.push(temp->val);
+          
+      }
         
-        preorderTraversal(root->right);
-        return p;
+       while(!s2.empty())
+       {
+           int value = s2.top();
+           p.push_back(value);
+           s2.pop();
+       }
+       return p; 
     }
+    
 };

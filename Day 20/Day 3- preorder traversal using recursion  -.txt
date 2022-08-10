@@ -9,18 +9,55 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+//recursive approach
+
+// class Solution {
+// public:
+//     vector<int> p;
+//     vector<int> preorderTraversal(TreeNode* root) {
+//           if(root==NULL)
+//         {
+//         return p;
+//         }
+//         p.push_back(root->val);
+//         preorderTraversal(root->left);
+        
+//         preorderTraversal(root->right);
+//         return p;
+//     }
+// };
+
+
+// iterative approach 
+
 class Solution {
 public:
     vector<int> p;
     vector<int> preorderTraversal(TreeNode* root) {
-          if(root==NULL)
+        stack<TreeNode*> s;
+        if(root==NULL)
         {
-        return p;
+            return p;
         }
-        p.push_back(root->val);
-        preorderTraversal(root->left);
         
-        preorderTraversal(root->right);
+        s.push(root);
+        
+        while(!s.empty())
+        {
+            TreeNode* el = s.top();
+            int val1 = el->val;
+            p.push_back(val1);
+            s.pop();
+            if(el->right !=NULL)
+            {
+                s.push(el->right);
+            }
+            if(el->left != NULL)
+            {
+                s.push(el->left);
+            }
+        }        
         return p;
     }
 };
